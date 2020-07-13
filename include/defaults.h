@@ -10,10 +10,10 @@
 #endif
 
 struct deflog {
-    enum type {
-        VERBOSE,
-        WARNING,
-        ERROR
+    enum type : int {
+        VERBOSE = 0,
+        WARNING = 1,
+        ERROR = 2
     };
     static std::string ToString(deflog::type _tp) {
         switch (_tp)

@@ -7,63 +7,85 @@
 #include <string>
 
 /* 
-    templated writer to simultaneously write to an output stream (cout or cerr)
-    and a file stream. all of this just to avoid an if statement
+	templated writer to simultaneously write to an output stream (cout or cerr)
+	and a file stream. all of this just to avoid an if statement
 */
 
 template <typename _FST, typename _OST>
 class DoubleStreamWriter {
-    DoubleStreamWriter(_FST* fst, _OST* ost) {
-        fst_ = fst;
-        ost_ = ost;
-    }
 public:
-    static void Write(const std::string& str) {
-        (*fst_) << str;
-        (*ost_) << str;
-    }
+	DoubleStreamWriter(_FST fst, _OST ost) {
+		fst_ = fst;
+		ost_ = ost;
+	}
+	template <typename WT>
+	void Write(WT obj) {
+		(*fst_) << obj;
+		(*ost_) << obj;
+	}
+	void Flush() {
+		fst_->flush();
+		ost_->flush();
+	}
 
 private:
-    static _FST* fst_;
-    static _OST* ost_;
+	_FST fst_;
+	_OST ost_;
 };
 
 template <>
-class DoubleStreamWriter <std::nullptr_t, std::ostream> {
+class DoubleStreamWriter <std::nullptr_t, std::ostream*> {
 public:
-    DoubleStreamWriter(std::nullptr_t fst, std::ostream* ost) {
-        ost_ = ost;
-    }
-    static void Write(const std::string& str) {
-        (*ost_) << str;
-    }
+	DoubleStreamWriter(std::nullptr_t fst, std::ostream* ost) {
+		(void)fst;
+		ost_ = ost;
+	}
+	template <typename WT>
+	void Write(WT obj) {
+		(*ost_) << obj;
+	}
+	void Flush() {
+		ost_->flush();
+	}
 
 private:
-    static std::ostream* ost_;
+	std::ostream* ost_;
 };
 
 template <>
-class DoubleStreamWriter <std::fstream, std::nullptr_t> {
+class DoubleStreamWriter <std::ofstream*, std::nullptr_t> {
 public:
-    DoubleStreamWriter(std::fstream* fst, std::nullptr_t ost) {
-        fst_ = fst;
-    }
-    static void Write(const std::string& str) {
-        (*fst_) << str;
-    }
+	DoubleStreamWriter(std::ofstream* fst, std::nullptr_t ost) {
+		(void)ost;
+		fst_ = fst;
+	}
+	template <typename WT>
+	void Write(WT obj) {
+		(*fst_) << obj;
+	}
+	void Flush() {
+		fst_->flush();	
+	}
 
 private:
-    static std::fstream* fst_;
+	static std::ofstream* fst_;
 };
 
 template <>
 class DoubleStreamWriter <std::nullptr_t, std::nullptr_t> {
 public:
-    DoubleStreamWriter(std::nullptr_t fst, std::nullptr_t ost) {
-        std::cout << ">>>>>> METALOG: cannot log anything with those settings " << std::endl;
-    }
-    static void Write(const std::string& str) {
-    }
+	DoubleStreamWriter(std::nullptr_t fst, std::nullptr_t ost) {
+		(void)fst;
+		(void)ost;
+		std::cout << ">>> cannot log anything with those settings" << std::endl;
+	}
+	template <typename WT>
+	void Write(WT obj) {
+		(void)obj;
+	}
+	void Flush() {
+
+	}
 };
 
 

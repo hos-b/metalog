@@ -1,0 +1,18 @@
+{
+    "files.associations": {
+        "iostream": "cpp"
+    },
+    "ccls.launch.command": "/usr/local/bin/ccls",
+	"files.watcherExclude": {
+		"**/.git/objects/**": true,
+		"**/.git/subtree-cache/**": true,
+		"**/.ccls-cache/*/**": true
+	},
+	"ccls.highlight.function.face": ["enabled"],
+	"ccls.highlight.type.face": ["enabled"],
+	"ccls.highlight.variable.face": ["enabled"],
+	"C_Cpp.autocomplete": "Disabled",
+	"C_Cpp.formatting": "Disabled",
+	"C_Cpp.errorSquiggles": "Disabled",
+	"C_Cpp.intelliSenseEngine": "Disabled"
+}
