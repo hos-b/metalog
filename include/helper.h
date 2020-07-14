@@ -8,6 +8,20 @@
 #include <iostream>
 #include <array>
 
+
+// recursive hashing
+template <typename _HT>
+size_t GetVariadicHash(_HT arg) {
+    return std::hash<_HT>()(arg);
+}
+template <typename _HT, typename... VH>
+size_t GetVariadicHash(_HT arg, VH... args) {
+    if (sizeof...(args) == 0)
+        return 0;
+    else
+        return std::hash<_HT>()(arg) ^ GetVariadicHash(args...);
+}
+
 namespace {
 enum _tokenizer_state {
     TNORMAL,

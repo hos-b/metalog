@@ -10,28 +10,5 @@ namespace output
 	static constexpr outstream logfile = 0b100;
 };
 
-namespace token_types
-{
-	static constexpr unsigned int int_token = 0b0001;
-	static constexpr unsigned int float_token = 0b0010;
-	static constexpr unsigned int double_token = 0b0011;
-	static constexpr unsigned int string_token = 0b0100;
-	static constexpr unsigned int id_token = 0b0101;
-	static constexpr unsigned int char_token = 0b0110;
-}
 
-namespace {
-void PlaceHolder() {
-	(void)output::err;
-	(void)output::out;
-	(void)output::logfile;
-	(void)token_types::int_token;
-	(void)token_types::float_token;
-	(void)token_types::double_token;
-	(void)token_types::string_token;
-	(void)token_types::id_token;
-	(void)token_types::char_token;
-}
-
-}
 #endif

@@ -25,6 +25,7 @@ struct deflog {
         case ERROR:
             return "error";
         }
+        return "wrong type";
     }
 
 };
