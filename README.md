@@ -17,7 +17,7 @@ TimedLog(struct::type type, id, msec, string format, args...)
 ```
 
 ### Unique Log
-backed by a hashed, it's designed to only go through for new state changes.
+backed by a hashed set, it's designed to only go through for new state changes.
 ```cpp
 UniqueLog(type, string format, args)
 ```
